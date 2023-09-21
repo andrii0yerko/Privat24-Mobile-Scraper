@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "privat-exporter"
+version = "0.1.0"
+description = ""
+authors = ["Andrii Yerko <aerko12@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+appium-python-client = "^3.0.0"
+beautifulsoup4 = "^4.12.2"
+lxml = "^4.9.3"
+python-dotenv = "^1.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.9.1"
+isort = "^5.12.0"
+flake8-pyproject = "^1.2.3"
+pre-commit = "^3.4.0"
+jupyter = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 140
+ignore = ["E203", "W503"]
+per-file-ignores = [
+    '__init__.py:F401',
+]
+
+[tool.black]
+line-length = 140
+
+[tool.isort]
+profile = "black"
+include_trailing_comma = true
+use_parentheses = true
+multi_line_output = 3

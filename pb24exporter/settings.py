@@ -1,0 +1,3 @@
+MAIN_ACTIVITY = "ua.privatbank.ap24v6.MainActivity"
+PARSING_TIMEOUT_S = 0.1
+SWIPE_DURATION_MS = 1500
