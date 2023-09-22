@@ -4,7 +4,7 @@ import appium.webdriver
 from appium.options.android.uiautomator2.base import UiAutomator2Options
 from dotenv import load_dotenv
 
-from pb24exporter.parser import Parser
+from pb24exporter.scraper import Scraper
 
 
 def call_for_login(parser):
@@ -27,10 +27,10 @@ def main():
         ),
     )
 
-    parser = Parser(driver)
-    call_for_login(parser)
+    scraper = Scraper(driver)
+    call_for_login(scraper)
 
-    for i, rec in enumerate(parser.parse()):
+    for i, rec in enumerate(scraper.scrape()):
         print(i, rec)
         if i == 25:
             break
