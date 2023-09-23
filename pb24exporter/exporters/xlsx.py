@@ -1,3 +1,4 @@
+import logging
 from typing import Optional
 
 import pandas as pd
@@ -24,7 +25,7 @@ class XlsxExporterStrategy:
             self._write_new(df)
         else:
             self._write_append(df)
-        print(f"flushed {len(self._buffer)}")
+        logging.info(f"Saved {len(self._buffer)} records to {self._filename}")
         self._buffer = []
 
     def close(self) -> None:

@@ -1,3 +1,5 @@
+import logging
+
 import appium.webdriver
 import click
 from appium.options.android.uiautomator2.base import UiAutomator2Options
@@ -24,6 +26,7 @@ def call_for_action_callback(msg):
     show_default=True,
 )
 def cli(end_date, export_format, export_path, appium_server_url):
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
     driver = appium.webdriver.Remote(  # type: ignore
         command_executor=appium_server_url,
         options=UiAutomator2Options().load_capabilities(
