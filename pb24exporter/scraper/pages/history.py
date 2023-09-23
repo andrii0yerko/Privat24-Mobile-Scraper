@@ -7,6 +7,7 @@ class TransactionPageLocators:
     RECORDS = (AppiumBy.XPATH, "//android.widget.RelativeLayout[@clickable='true']")
 
 
+# TODO Handle selenium.common.exceptions: NoSuchElementException, StaleElementReferenceException
 class TransactionHistoryPage:
     def __init__(self, driver):
         self.driver = driver
@@ -21,7 +22,7 @@ class TransactionHistoryPage:
     def num_records(self):
         return len(self._find_records())
 
-    def scroll(self):
+    def show_next(self):
         records = self._find_records()
 
         ys, heights = [], []

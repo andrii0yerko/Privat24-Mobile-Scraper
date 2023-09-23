@@ -3,13 +3,13 @@ import click
 from appium.options.android.uiautomator2.base import UiAutomator2Options
 
 from pb24exporter.exporters.factory import create_exporter
-from pb24exporter.scraper import Scraper
+from pb24exporter.main import main_loop
+from pb24exporter.scraper import TransactionScraper
 
 
-def call_for_login(parser):
-    while not parser.check_if_loaded():
-        click.echo("Please open Privat24 app and login first")
-        click.pause()
+def call_for_action_callback(msg):
+    click.echo(msg)
+    click.pause()
 
 
 @click.command()
@@ -23,7 +23,7 @@ def call_for_login(parser):
     help="URL of the Appium server. If not present, will be taken from APPIUM_SERVER_URL environmental variable",
     show_default=True,
 )
-def main(end_date, export_format, export_path, appium_server_url):
+def cli(end_date, export_format, export_path, appium_server_url):
     driver = appium.webdriver.Remote(  # type: ignore
         command_executor=appium_server_url,
         options=UiAutomator2Options().load_capabilities(
@@ -36,14 +36,6 @@ def main(end_date, export_format, export_path, appium_server_url):
     )
 
     save_strategy = create_exporter(format=export_format, path=export_path)
-    scraper = Scraper(driver)
-    call_for_login(scraper)
+    scraper = TransactionScraper(driver, call_for_action_callback=call_for_action_callback)
 
-    for i, rec in enumerate(scraper.scrape()):
-        if rec.date < end_date:
-            click.echo("Reached end date")
-            break
-        save_strategy.save(rec)
-
-    save_strategy.flush()
-    save_strategy.close()
+    main_loop(scraper, save_strategy, lambda rec: rec.date < end_date)

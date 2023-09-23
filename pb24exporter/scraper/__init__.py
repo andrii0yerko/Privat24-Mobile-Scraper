@@ -1,0 +1,1 @@
+from pb24exporter.scraper.scraper import TransactionScraper
