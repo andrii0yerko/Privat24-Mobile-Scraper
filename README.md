@@ -19,7 +19,7 @@ Primarily, I wish to automate this process to avoid the manual effort of exporti
 - USB connected Android device with:
     - USB Debugging mode enabled
     - granted access to your PC
-    - [Privat24](https://play.google.com/store/apps/details?id=ua.privatbank.ap24) installed and launched
+    - [Privat24](https://play.google.com/store/apps/details?id=ua.privatbank.ap24) installed and launched (currently, the transaction history page must be open)
 - Python or Docker to run the scraper
 
 ## Installation
