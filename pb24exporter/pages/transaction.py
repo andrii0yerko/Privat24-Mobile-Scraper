@@ -19,11 +19,11 @@ class TransactionPage:
     def _parse_record(self, bs: BeautifulSoup):
         # it also can be done without bs
         # TODO: research
-        tv_name: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvTitle"})["text"]
-        tv_sum: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvSum"})["text"]
-        tv_description: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvDescription"})["text"]
-        tv_date: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvDate"})["text"]
-        tv_id = bs.find_all("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvValue"})[-1]["text"]
+        tv_name: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvTitle"})["text"]  # type: ignore
+        tv_sum: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvSum"})["text"]  # type: ignore
+        tv_description: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvDescription"})["text"]  # type: ignore # noqa: E501
+        tv_date: str = bs.find("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvDate"})["text"]  # type: ignore
+        tv_id: str = bs.find_all("android.widget.TextView", {"resource-id": "ua.privatbank.ap24:id/tvValue"})[-1]["text"]
 
         amount, currency = self._preprocess_tvsum(tv_sum)
         date = self._preprocess_tvdate(tv_date)

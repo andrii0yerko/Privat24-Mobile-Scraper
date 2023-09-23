@@ -1,0 +1,5 @@
+{
+    "flake8.path": [
+        "./.venv/bin/flake8"
+    ]
+}

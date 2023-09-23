@@ -2,6 +2,7 @@ import appium.webdriver
 import click
 from appium.options.android.uiautomator2.base import UiAutomator2Options
 
+from pb24exporter.exporters.factory import create_exporter
 from pb24exporter.scraper import Scraper
 
 
@@ -12,9 +13,18 @@ def call_for_login(parser):
 
 
 @click.command()
-@click.option("--appium-server-url", envvar="APPIUM_SERVER_URL")
-def main(appium_server_url):
-    driver = appium.webdriver.Remote(
+@click.option("--end-date", default=None, type=click.DateTime(), help="Date to stop scraping at", show_default=True)
+@click.option("--export-format", type=click.Choice(["xlsx"]), default="xlsx", help="Format for the exported data", show_default=True)
+@click.option("--export-path", default="transaction-history.xlsx", help="Path to the exported file", show_default=True)
+@click.option(
+    "--appium-server-url",
+    envvar="APPIUM_SERVER_URL",
+    default="http://localhost:4723",
+    help="URL of the Appium server. If not present, will be taken from APPIUM_SERVER_URL environmental variable",
+    show_default=True,
+)
+def main(end_date, export_format, export_path, appium_server_url):
+    driver = appium.webdriver.Remote(  # type: ignore
         command_executor=appium_server_url,
         options=UiAutomator2Options().load_capabilities(
             dict(
@@ -25,10 +35,15 @@ def main(appium_server_url):
         ),
     )
 
+    save_strategy = create_exporter(format=export_format, path=export_path)
     scraper = Scraper(driver)
     call_for_login(scraper)
 
     for i, rec in enumerate(scraper.scrape()):
-        print(i, rec)
-        if i == 25:
+        if rec.date < end_date:
+            click.echo("Reached end date")
             break
+        save_strategy.save(rec)
+
+    save_strategy.flush()
+    save_strategy.close()
