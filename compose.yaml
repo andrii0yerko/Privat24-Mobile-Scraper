@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  appium:
+    privileged: true
+    ports:
+      - '4723:4723'
+    volumes:
+      - '/dev/bus/usb:/dev/bus/usb'
+    container_name: appium-container
+    image: 'appium/appium:v2.1.3-p1'

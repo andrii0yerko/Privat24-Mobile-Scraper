@@ -15,7 +15,7 @@ def call_for_action_callback(msg):
 
 
 @click.command()
-@click.option("--end-date", default=None, type=click.DateTime(), help="Date to stop scraping at", show_default=True)
+@click.option("--end-date", required=True, type=click.DateTime(), help="Date to stop scraping at", show_default=True)
 @click.option("--export-format", type=click.Choice(["xlsx"]), default="xlsx", help="Format for the exported data", show_default=True)
 @click.option("--export-path", default="transaction-history.xlsx", help="Path to the exported file", show_default=True)
 @click.option(
