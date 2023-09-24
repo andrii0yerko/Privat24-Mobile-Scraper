@@ -11,6 +11,15 @@ On the mobile application, the full transaction history is available, but unfort
 
 Primarily, I wish to automate this process to avoid the manual effort of exporting data. Manually entering expenses and incomes as they occur is a tedious task, and I would prefer to have an automated system in place. The objective is to streamline the analytical aspect, allowing for comprehensive financial insights without the need for manual data entry.
 
+
+## Demo
+[demo.webm](https://github.com/andrii0yerko/Privat24-Mobile-Scraper/assets/46103860/bbb0c4ac-a3b8-42cb-ac91-291aa1b11191)
+
+And result
+
+![demo_result](https://github.com/andrii0yerko/Privat24-Mobile-Scraper/assets/46103860/15557110-8d45-4f15-a274-2308c266d00a)
+
+
 # Documentation
 
 ## Prerequisites
